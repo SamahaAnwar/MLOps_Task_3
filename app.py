@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from sklearn.preprocessing import StandardScaler
-from Heart_Disease_Prediction import model
+#from Heart_Disease_Prediction import model
+import pickle
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ def predict():
     preprocessed_data = preprocess(data)
     
     # Use your machine learning model to make predictions
+    model = pickle.load(open("model.pkl", "rb"))
     prediction = model.predict(preprocessed_data)
     
     # Return the prediction as JSON
@@ -27,4 +29,4 @@ def preprocess(data):
 
 if __name__ == '__main__':
     # Run the Flask app
-    app.run(debug=True)
+    app.run(host ="0.0.0.0", debug=True)
